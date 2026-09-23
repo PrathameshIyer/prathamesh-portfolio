@@ -1,0 +1,1058 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#DF6C4F">
+  <meta name="description" content="Prathamesh Iyer is a content writer and strategist creating research-led blogs, website copy, and brand content.">
+  <meta property="og:title" content="Prathamesh Iyer | Content Writer & Strategist">
+  <meta property="og:description" content="Research-led writing, website copy, and content strategy by Prathamesh Iyer.">
+  <meta property="og:type" content="website">
+  <title>Prathamesh Iyer | Content Writer & Strategist</title>
+
+  <!-- Bruno Simon's 2019 portfolio uses Amatic SC + Nunito. This build keeps that typographic feel. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --terra: #DF6C4F;
+      --pink: #FF9398;
+      --yellow: #ECD06F;
+      --ink: #231815;
+      --paper: #fff7ec;
+      --white: #ffffff;
+      --shadow: rgba(35, 24, 21, .22);
+      --radius: 14px;
+      --display: "Amatic SC", cursive;
+      --body: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { width: 100%; min-height: 100%; margin: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      overflow: hidden;
+      background: var(--terra);
+      color: var(--ink);
+      font-family: var(--body);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    button, a { font: inherit; }
+    button { color: inherit; }
+    a { color: inherit; }
+    ::selection { background: var(--pink); color: var(--ink); }
+
+    #app {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      background: var(--terra);
+    }
+
+    #world {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+      outline: none;
+    }
+
+    /* UI intentionally feels like an in-world game overlay rather than a normal portfolio nav. */
+    .ui {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    .brand {
+      position: absolute;
+      top: 22px;
+      left: 24px;
+      pointer-events: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px 8px 8px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--yellow);
+      box-shadow: 4px 4px 0 var(--shadow);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .brand:hover { transform: translate(-2px, -2px) rotate(-1deg); box-shadow: 7px 7px 0 var(--shadow); }
+
+    .brand-mark {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      background: var(--pink);
+      font-family: var(--display);
+      font-size: 23px;
+      line-height: 1;
+      transform: rotate(-9deg);
+    }
+
+    .top-actions {
+      position: absolute;
+      top: 22px;
+      right: 24px;
+      display: flex;
+      gap: 8px;
+      pointer-events: auto;
+    }
+
+    .top-button {
+      min-height: 40px;
+      padding: 9px 13px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--paper);
+      box-shadow: 4px 4px 0 var(--shadow);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+
+    .top-button:hover,
+    .top-button:focus-visible {
+      transform: translate(-2px, -2px);
+      background: var(--pink);
+      box-shadow: 7px 7px 0 var(--shadow);
+      outline: none;
+    }
+
+    .message-stack {
+      position: absolute;
+      left: 24px;
+      bottom: 24px;
+      width: min(430px, calc(100vw - 48px));
+      pointer-events: none;
+    }
+
+    .message {
+      width: fit-content;
+      max-width: 100%;
+      margin-top: 10px;
+      padding: 12px 15px;
+      border: 2px solid var(--ink);
+      border-radius: 14px;
+      background: var(--paper);
+      box-shadow: 5px 5px 0 var(--shadow);
+      font-size: 14px;
+      line-height: 1.35;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: message-in .65s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+
+    .message:nth-child(2) { animation-delay: .35s; background: var(--pink); }
+    .message:nth-child(3) { animation-delay: .7s; }
+
+    .message strong { font-weight: 900; }
+    .message .small { font-size: 11px; opacity: .72; }
+
+    @keyframes message-in { to { opacity: 1; transform: none; } }
+
+    .world-prompt {
+      position: absolute;
+      left: 50%;
+      bottom: 28px;
+      transform: translate(-50%, 20px);
+      padding: 10px 15px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--yellow);
+      box-shadow: 4px 4px 0 var(--shadow);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s ease, transform .22s ease;
+      white-space: nowrap;
+    }
+
+    .world-prompt.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+    .controls {
+      position: absolute;
+      right: 24px;
+      bottom: 24px;
+      width: 152px;
+      padding: 10px;
+      border: 2px solid var(--ink);
+      border-radius: 14px;
+      background: rgba(255, 247, 236, .9);
+      box-shadow: 5px 5px 0 var(--shadow);
+      pointer-events: none;
+    }
+
+    .controls-title {
+      margin-bottom: 6px;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .keys { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+    .key { height: 26px; display: grid; place-items: center; border: 1px solid rgba(35,24,21,.5); border-radius: 6px; background: var(--yellow); font-size: 11px; font-weight: 900; }
+    .key.blank { visibility: hidden; }
+
+    .mobile-controls {
+      display: none;
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      width: 142px;
+      pointer-events: auto;
+      user-select: none;
+    }
+
+    .pad { display: grid; grid-template-columns: repeat(3, 44px); gap: 5px; justify-content: end; }
+    .pad button {
+      width: 44px;
+      height: 44px;
+      border: 2px solid var(--ink);
+      border-radius: 9px;
+      background: var(--paper);
+      box-shadow: 3px 3px 0 var(--shadow);
+      font-size: 17px;
+      font-weight: 900;
+      touch-action: none;
+    }
+    .pad button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--shadow); }
+    .pad .empty { visibility: hidden; }
+
+    .modal-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      background: rgba(35, 24, 21, .2);
+      backdrop-filter: blur(5px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .25s ease, visibility .25s ease;
+      pointer-events: none;
+    }
+
+    .modal-layer.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+
+    .panel {
+      position: relative;
+      width: min(940px, 100%);
+      max-height: min(760px, calc(100vh - 44px));
+      overflow: auto;
+      padding: clamp(24px, 5vw, 50px);
+      border: 3px solid var(--ink);
+      border-radius: 17px;
+      background: var(--paper);
+      box-shadow: 10px 10px 0 var(--shadow);
+      transform: translateY(16px) scale(.98);
+      transition: transform .28s cubic-bezier(.2,.8,.2,1);
+      scrollbar-color: var(--pink) transparent;
+    }
+
+    .modal-layer.is-open .panel { transform: none; }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 10px;
+      background: var(--pink);
+    }
+
+    .close {
+      position: sticky;
+      top: 0;
+      float: right;
+      width: 38px;
+      height: 38px;
+      margin: -8px -8px 10px 10px;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      background: var(--yellow);
+      cursor: pointer;
+      font-weight: 900;
+      transition: transform .16s ease, background .16s ease;
+      z-index: 2;
+    }
+    .close:hover { transform: rotate(8deg) scale(1.05); background: var(--pink); }
+
+    .panel-kicker {
+      margin-top: 6px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      opacity: .7;
+    }
+
+    .panel h2 {
+      margin: 3px 0 15px;
+      font-family: var(--display);
+      font-size: clamp(68px, 11vw, 120px);
+      line-height: .74;
+      font-weight: 700;
+      letter-spacing: .01em;
+      text-transform: uppercase;
+    }
+
+    .panel-lead { max-width: 760px; margin: 0 0 28px; font-size: clamp(17px, 2.4vw, 21px); line-height: 1.5; }
+
+    .copy-grid { display: grid; grid-template-columns: 1.35fr .65fr; gap: 28px; align-items: start; }
+    .copy-grid p { margin: 0 0 15px; font-size: 16px; line-height: 1.65; }
+
+    .side-note { padding: 18px; border: 2px solid var(--ink); border-radius: 12px; background: var(--yellow); }
+    .side-note strong { display: block; margin-bottom: 5px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .side-note span { display: block; font-size: 14px; }
+
+    .project-list { display: grid; gap: 11px; margin-top: 16px; }
+    .project {
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      gap: 14px;
+      align-items: start;
+      padding: 17px 15px;
+      border: 2px solid var(--ink);
+      border-radius: 11px;
+      background: #fffdf9;
+      text-decoration: none;
+      transition: transform .17s ease, background .17s ease, box-shadow .17s ease;
+    }
+    .project:hover,
+    .project:focus-visible {
+      background: var(--yellow);
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 var(--shadow);
+      outline: none;
+    }
+    .project-number { font-family: var(--display); font-size: 42px; line-height: .8; }
+    .project h3 { margin: 0 0 5px; font-size: 18px; line-height: 1.2; }
+    .project p { margin: 0; color: rgba(35,24,21,.76); font-size: 13px; line-height: 1.5; }
+    .project-arrow { font-size: 24px; line-height: 1; transition: transform .17s ease; }
+    .project:hover .project-arrow { transform: translate(3px,-3px); }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .tag { padding: 8px 10px; border: 2px solid var(--ink); border-radius: 999px; background: var(--pink); font-size: 11px; font-weight: 900; }
+
+    .quote-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+    .quote { padding: 22px; border: 2px solid var(--ink); border-radius: 12px; background: var(--yellow); transition: transform .17s ease; }
+    .quote:hover { transform: rotate(-.6deg) translateY(-3px); }
+    .quote-mark { font-family: Georgia, serif; font-size: 52px; line-height: .6; }
+    .quote p { margin: 16px 0 20px; font-size: 14px; line-height: 1.62; }
+    .quote strong { display: block; font-size: 14px; }
+    .quote span { display: block; margin-top: 2px; font-size: 11px; opacity: .7; }
+
+    .contact-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .cta {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border: 2px solid var(--ink);
+      border-radius: 9px;
+      background: var(--pink);
+      box-shadow: 4px 4px 0 var(--shadow);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform .17s ease, background .17s ease, box-shadow .17s ease;
+    }
+    .cta:hover { transform: translate(-2px,-2px); background: var(--yellow); box-shadow: 7px 7px 0 var(--shadow); }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      top: 86px;
+      z-index: 80;
+      padding: 9px 13px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--pink);
+      box-shadow: 4px 4px 0 var(--shadow);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      transform: translate(-50%, -10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    .cursor {
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 100;
+      width: 10px;
+      height: 10px;
+      margin: -5px 0 0 -5px;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      background: var(--yellow);
+      pointer-events: none;
+      opacity: 0;
+      mix-blend-mode: multiply;
+      transition: width .15s ease, height .15s ease, margin .15s ease, background .15s ease, opacity .2s ease;
+    }
+    .cursor.big { width: 22px; height: 22px; margin: -11px 0 0 -11px; background: var(--pink); }
+
+    @media (max-width: 800px) {
+      .controls { display: none; }
+      .mobile-controls { display: block; }
+      .copy-grid { grid-template-columns: 1fr; }
+      .quote-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .brand { top: 13px; left: 13px; font-size: 10px; }
+      .top-actions { top: 13px; right: 13px; }
+      .top-actions .top-button:nth-child(n+3) { display: none; }
+      .top-button { min-height: 36px; padding: 7px 10px; font-size: 10px; }
+      .message-stack { left: 13px; bottom: 14px; width: calc(100vw - 26px); }
+      .message { font-size: 12px; }
+      .world-prompt { bottom: 82px; font-size: 10px; }
+      .panel { padding: 24px 18px 24px; max-height: calc(100vh - 28px); }
+      .panel h2 { font-size: clamp(62px, 20vw, 95px); }
+      .project { grid-template-columns: 38px 1fr; }
+      .project-arrow { display: none; }
+      .close { margin-right: -1px; }
+    }
+
+    @media (pointer: coarse) {
+      .cursor { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <canvas id="world" aria-label="Interactive portfolio world. Use arrow keys or WASD to move."></canvas>
+
+    <div class="ui" aria-hidden="false">
+      <a class="brand" href="#" id="homeButton" aria-label="Return to the main world">
+        <span class="brand-mark">P</span>
+        <span>Prathamesh Iyer</span>
+      </a>
+
+      <div class="top-actions">
+        <button class="top-button" data-open="about">About</button>
+        <button class="top-button" data-open="work">Work</button>
+        <button class="top-button" data-open="words">Words</button>
+        <button class="top-button" data-open="contact">Contact</button>
+      </div>
+
+      <div class="message-stack" aria-live="polite">
+        <div class="message"><strong>Hey, I’m Prathamesh.</strong> This is my portfolio. Drive around, click the signs, and poke around.</div>
+        <div class="message">I write blogs, website copy and strategy-led content that makes complicated ideas easier to understand.</div>
+        <div class="message"><span class="small">Tip: use W A S D / arrow keys. Get close to a sign and press E.</span></div>
+      </div>
+
+      <div class="world-prompt" id="worldPrompt">Press E · Open</div>
+
+      <div class="controls">
+        <div class="controls-title">Drive</div>
+        <div class="keys">
+          <span class="key blank"></span><span class="key">W</span><span class="key blank"></span>
+          <span class="key">A</span><span class="key">S</span><span class="key">D</span>
+        </div>
+      </div>
+
+      <div class="mobile-controls" aria-label="Mobile driving controls">
+        <div class="pad">
+          <button class="empty" aria-hidden="true"></button>
+          <button data-drive="forward" aria-label="Move forward">▲</button>
+          <button class="empty" aria-hidden="true"></button>
+          <button data-drive="left" aria-label="Turn left">◀</button>
+          <button data-drive="back" aria-label="Move backward">▼</button>
+          <button data-drive="right" aria-label="Turn right">▶</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cursor" id="cursor"></div>
+    <div class="toast" id="toast" role="status"></div>
+
+    <div class="modal-layer" id="modal" aria-hidden="true">
+      <article class="panel" role="dialog" aria-modal="true" aria-labelledby="panelTitle">
+        <button class="close" id="closeModal" aria-label="Close">×</button>
+        <div id="panelContent"></div>
+      </article>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script>
+    (() => {
+      'use strict';
+
+      const COLORS = {
+        terra: 0xDF6C4F,
+        pink: 0xFF9398,
+        yellow: 0xECD06F,
+        ink: 0x231815,
+        paper: 0xFFF7EC
+      };
+
+      const PROJECTS = [
+        {
+          title: 'Best Ecommerce Platform for Small Businesses',
+          desc: 'A research-led guide comparing ecommerce platforms for small businesses, written for clarity, search intent, and practical decision-making.',
+          url: 'https://aureatelabs.com/guide/build-ecommerce-website-from-scratch/best-ecommerce-platform-for-small-business/'
+        },
+        {
+          title: '15 Fun & Engaging SEL Activities',
+          desc: 'An educational article built around useful, age-appropriate social-emotional learning activities for preschool and kindergarten audiences.',
+          url: 'https://classmonitor.com/blog/social-emotional-activities-for-preschool-and-kindergarten?srsltid=AfmBOooDH8ddnhOYZORfP2zRj79OQo-VR_kJM5NXniNKE9o-IIyf1LJR'
+        },
+        {
+          title: 'Breaking Free From Data Traps',
+          desc: 'A Financial Express article explaining how users can think about data privacy, control, and the trade-offs behind everyday digital services.',
+          url: 'https://www.financialexpress.com/money/breaking-free-from-data-traps-how-users-can-regain-control-2640955/'
+        },
+        {
+          title: 'NexGITS Website Copy',
+          desc: 'Website copy written for a technology company, translating technical offerings into clearer business-facing messaging.',
+          url: 'https://nexgits.com/'
+        }
+      ];
+
+      const SKILLS = [
+        'Blog writing', 'Website copy', 'Content strategy', 'Research', 'SEO & keyword research',
+        'Brand voice', 'Editing', 'Content direction', 'Long-form writing', 'Fact checking'
+      ];
+
+      const ABOUT_HTML = `
+        <div class="panel-kicker">About me</div>
+        <h2 id="panelTitle">Hello.</h2>
+        <div class="copy-grid">
+          <div>
+            <p class="panel-lead">I’m Prathamesh Iyer, a content writer and strategist who likes turning complicated subjects into writing that feels clear, useful, and human.</p>
+            <p>I work across research-led blog content, website copy, and brand communication. My process starts with understanding the subject, the reader, and what the content actually needs to do before I put words on the page.</p>
+            <p>I’ve written across technology, education, finance, ecommerce, and brand content, with a focus on clean structure, useful research, and a voice that doesn’t sound like a brochure.</p>
+          </div>
+          <aside class="side-note"><strong>What I care about</strong><span>Clear thinking. Good research. Simple language. Content that has a reason to exist.</span></aside>
+        </div>
+        <div class="tag-list">${SKILLS.map(s => `<span class="tag">${escapeHTML(s)}</span>`).join('')}</div>
+      `;
+
+      const WORK_HTML = `
+        <div class="panel-kicker">Selected work</div>
+        <h2 id="panelTitle">The work.</h2>
+        <p class="panel-lead">A few pieces that show the range: search-led blog content, editorial work, and website copy.</p>
+        <div class="project-list">
+          ${PROJECTS.map((p, i) => `
+            <a class="project" href="${p.url}" target="_blank" rel="noopener noreferrer">
+              <div class="project-number">0${i + 1}</div>
+              <div><h3>${escapeHTML(p.title)}</h3><p>${escapeHTML(p.desc)}</p></div>
+              <div class="project-arrow">↗</div>
+            </a>
+          `).join('')}
+        </div>
+        <div class="contact-row">
+          <a class="cta" href="https://drive.google.com/drive/folders/1Z0578ro8foJEU_5i43dvatiW4Zxjgeor" target="_blank" rel="noopener noreferrer">Full portfolio ↗</a>
+        </div>
+      `;
+
+      const WORDS_HTML = `
+        <div class="panel-kicker">Happy clients</div>
+        <h2 id="panelTitle">Their words.</h2>
+        <p class="panel-lead">A couple of people I’ve worked with directly.</p>
+        <div class="quote-grid">
+          <blockquote class="quote">
+            <div class="quote-mark">“</div>
+            <p>Prathamesh has written exclusive blog contents for the website of our company. He has fulfilled our desired checklist by adding keywords and providing well researched data. His humble and polite spoken words always makes a comfortable zone for the discussion of every detail frankly. I lead his work on the website directly by editting some stuffs of company's personal information. He works spokes about his quality and determination. I would definitely recommend him for his promising job.</p>
+            <strong>Bhavana Watti</strong><span>Branding strategies for creators, coaches and founders</span>
+          </blockquote>
+          <blockquote class="quote">
+            <div class="quote-mark">“</div>
+            <p>Prathamesh is a great and efficient writer who adheres to deadlines. He is a versatile writer who does adequate research on every subject before writing. So far, I have had a good experience working with him.</p>
+            <strong>Aashna Arora</strong><span>Content Specialist at AlgoScale</span>
+          </blockquote>
+        </div>
+      `;
+
+      const CONTACT_HTML = `
+        <div class="panel-kicker">Let’s talk</div>
+        <h2 id="panelTitle">Make something clear.</h2>
+        <p class="panel-lead">Need a writer who can research the subject, find the angle, and turn it into content people can actually use?</p>
+        <div class="contact-row">
+          <a class="cta" href="mailto:flowingdesk@gmail.com">Email me ↗</a>
+          <a class="cta" href="https://calendly.com/flowingdesk/30min" target="_blank" rel="noopener noreferrer">Book a 30-min call ↗</a>
+          <a class="cta" href="https://drive.google.com/drive/folders/1Z0578ro8foJEU_5i43dvatiW4Zxjgeor" target="_blank" rel="noopener noreferrer">View portfolio ↗</a>
+        </div>
+        <p style="margin-top:24px;font-size:13px;opacity:.72">flowingdesk@gmail.com</p>
+      `;
+
+      const PANELS = { about: ABOUT_HTML, work: WORK_HTML, words: WORDS_HTML, contact: CONTACT_HTML };
+
+      function escapeHTML(value) {
+        return value.replace(/[&<>'"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' }[c]));
+      }
+
+      // ----------------------------------------------------------------------
+      // Three.js world
+      // ----------------------------------------------------------------------
+      const canvas = document.getElementById('world');
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance' });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setClearColor(COLORS.terra, 1);
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(COLORS.terra);
+      scene.fog = new THREE.Fog(COLORS.terra, 45, 175);
+
+      const camera = new THREE.PerspectiveCamera(48, 1, .1, 260);
+      camera.position.set(10, 8, 15);
+
+      const hemi = new THREE.HemisphereLight(0xFFF7EC, COLORS.terra, 2.0);
+      scene.add(hemi);
+
+      const sun = new THREE.DirectionalLight(0xFFF7EC, 3.0);
+      sun.position.set(22, 32, 18);
+      sun.castShadow = true;
+      sun.shadow.mapSize.set(1024, 1024);
+      sun.shadow.camera.left = -70;
+      sun.shadow.camera.right = 70;
+      sun.shadow.camera.top = 70;
+      sun.shadow.camera.bottom = -70;
+      scene.add(sun);
+
+      const world = new THREE.Group();
+      scene.add(world);
+
+      const floor = new THREE.Mesh(
+        new THREE.PlaneGeometry(230, 230),
+        new THREE.MeshStandardMaterial({ color: COLORS.terra, roughness: 1 })
+      );
+      floor.rotation.x = -Math.PI / 2;
+      floor.receiveShadow = true;
+      world.add(floor);
+
+      // Stylised tiled ground, deliberately simple like a game diorama.
+      const tileGeo = new THREE.PlaneGeometry(5.6, 5.6);
+      const tileMat = new THREE.MeshBasicMaterial({ color: 0xE47758, transparent: true, opacity: .48, side: THREE.DoubleSide });
+      for (let x = -90; x <= 90; x += 8) {
+        for (let z = -90; z <= 90; z += 8) {
+          const tile = new THREE.Mesh(tileGeo, tileMat);
+          tile.rotation.x = -Math.PI / 2;
+          tile.position.set(x, .015, z);
+          world.add(tile);
+        }
+      }
+
+      function material(color) {
+        return new THREE.MeshStandardMaterial({ color, roughness: .82, metalness: 0 });
+      }
+
+      function box(w, h, d, color, y = h / 2) {
+        const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), material(color));
+        mesh.position.y = y;
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        return mesh;
+      }
+
+      function makeTree(x, z, scale = 1) {
+        const g = new THREE.Group();
+        const trunk = box(.45 * scale, 1.4 * scale, .45 * scale, COLORS.ink, .7 * scale);
+        const crown = new THREE.Mesh(new THREE.DodecahedronGeometry(1.65 * scale, 0), material(COLORS.yellow));
+        crown.position.y = 2.2 * scale;
+        crown.castShadow = true;
+        g.add(trunk, crown);
+        g.position.set(x, 0, z);
+        g.rotation.y = (x + z) * .05;
+        world.add(g);
+        return g;
+      }
+
+      function makeHouse(x, z, color = COLORS.paper, rot = 0) {
+        const g = new THREE.Group();
+        const base = box(7, 4, 6, color, 2);
+        base.position.x = 0;
+        const roof = new THREE.Mesh(new THREE.ConeGeometry(5.2, 2.9, 4), material(COLORS.pink));
+        roof.position.y = 5.45;
+        roof.rotation.y = Math.PI / 4;
+        roof.castShadow = true;
+        const door = box(1.1, 2.1, .22, COLORS.ink, 1.05);
+        door.position.set(0, 1.05, 3.08);
+        door.rotation.y = 0;
+        g.add(base, roof, door);
+        g.position.set(x, 0, z);
+        g.rotation.y = rot;
+        world.add(g);
+        return g;
+      }
+
+      function makeRoad(x, z, w, d, rot = 0) {
+        const r = new THREE.Mesh(new THREE.BoxGeometry(w, .07, d), new THREE.MeshStandardMaterial({ color: COLORS.yellow, roughness: .95 }));
+        r.position.set(x, .04, z);
+        r.rotation.y = rot;
+        r.receiveShadow = true;
+        world.add(r);
+      }
+
+      makeRoad(0, 0, 17, 220, 0);
+      makeRoad(0, 0, 220, 17, 0);
+      makeRoad(44, 18, 90, 12, 0);
+      makeRoad(-42, -22, 88, 12, 0);
+      makeRoad(-15, 48, 12, 72, 0);
+
+      makeHouse(-28, 25, COLORS.paper, -.12);
+      makeHouse(31, -30, COLORS.paper, .12);
+      makeHouse(-34, -39, COLORS.yellow, .05);
+      makeHouse(39, 39, COLORS.paper, -.12);
+      makeHouse(47, -2, COLORS.pink, .25);
+
+      [
+        [-46, 29, 1.0],[-55, 8, .8],[-40,-6,.95],[-18,-18,.9],[19,-23,.9],[55,-23,1.1],
+        [57,12,.95],[32,28,.85],[18,52,1.0],[-6,62,.9],[-38,57,1.05],[-62,45,.8]
+      ].forEach(([x,z,s]) => makeTree(x,z,s));
+
+      // Small ramps / blocks add the game-like space.
+      [
+        [-13,-9,7,2,1], [19,-4,6,2,-1], [7,31,5,2,1], [-31,-15,5,2,-1]
+      ].forEach(([x,z,w,h,dir]) => {
+        const ramp = new THREE.Mesh(new THREE.BoxGeometry(w, h, 3), material(COLORS.pink));
+        ramp.position.set(x, h / 2, z);
+        ramp.rotation.z = dir * .12;
+        ramp.castShadow = true;
+        world.add(ramp);
+      });
+
+      const signSpots = [
+        { key:'about', label:'ABOUT', x:-24, z:-1, color:COLORS.pink, angle:0 },
+        { key:'work', label:'WORK', x:25, z:1, color:COLORS.yellow, angle:0 },
+        { key:'words', label:'WORDS', x:-2, z:43, color:COLORS.pink, angle:Math.PI },
+        { key:'contact', label:'CONTACT', x:42, z:25, color:COLORS.yellow, angle:-Math.PI/2 }
+      ];
+
+      const hotspots = [];
+
+      function makeLabelTexture(text) {
+        const c = document.createElement('canvas');
+        c.width = 512; c.height = 160;
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = '#FFF7EC';
+        ctx.fillRect(14, 14, 484, 132);
+        ctx.strokeStyle = '#231815';
+        ctx.lineWidth = 8;
+        ctx.strokeRect(14, 14, 484, 132);
+        ctx.fillStyle = '#231815';
+        ctx.font = '700 74px "Amatic SC"';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, 256, 83);
+        return new THREE.CanvasTexture(c);
+      }
+
+      signSpots.forEach((spot, idx) => {
+        const g = new THREE.Group();
+        g.position.set(spot.x, 0, spot.z);
+        g.rotation.y = spot.angle;
+        const pole = new THREE.Mesh(new THREE.CylinderGeometry(.14,.18,3.2,8), material(COLORS.ink));
+        pole.position.y = 1.6;
+        pole.castShadow = true;
+        const boardMat = new THREE.MeshStandardMaterial({ color: spot.color, roughness: .8 });
+        const board = new THREE.Mesh(new THREE.BoxGeometry(5.4, 2.1, .35), boardMat);
+        board.position.y = 3.5;
+        board.castShadow = true;
+        const label = new THREE.Mesh(new THREE.PlaneGeometry(4.9,1.55), new THREE.MeshBasicMaterial({ map: makeLabelTexture(spot.label), transparent:true }));
+        label.position.set(0,3.5,.19);
+        g.add(pole, board, label);
+        g.userData = { key: spot.key, board, baseScale: 1 };
+        world.add(g);
+        hotspots.push(g);
+      });
+
+      // Car: intentionally low-poly and made from primitives, keeping the single-file constraint.
+      const car = new THREE.Group();
+      const carBody = new THREE.Mesh(new THREE.BoxGeometry(2.25, .7, 3.3), material(COLORS.pink));
+      carBody.position.y = .62;
+      carBody.castShadow = true;
+      const carTop = new THREE.Mesh(new THREE.BoxGeometry(1.65, .58, 1.55), material(COLORS.paper));
+      carTop.position.set(0, 1.05, .15);
+      carTop.castShadow = true;
+      const wheelGeo = new THREE.CylinderGeometry(.42,.42,.27,12);
+      const wheelMat = material(COLORS.ink);
+      [[-1.0,.42,1.05],[1.0,.42,1.05],[-1.0,.42,-1.08],[1.0,.42,-1.08]].forEach(([x,y,z]) => {
+        const w = new THREE.Mesh(wheelGeo, wheelMat);
+        w.rotation.z = Math.PI / 2;
+        w.position.set(x,y,z);
+        w.castShadow = true;
+        car.add(w);
+      });
+      car.add(carBody, carTop);
+      car.position.set(0,0,14);
+      world.add(car);
+
+      const arrow = new THREE.Mesh(new THREE.ConeGeometry(.22,.55,4), material(COLORS.yellow));
+      arrow.rotation.x = Math.PI / 2;
+      arrow.position.set(0,1.2,-2.05);
+      arrow.visible = false;
+      car.add(arrow);
+
+      const state = {
+        keys: Object.create(null),
+        drive: { forward:false, back:false, left:false, right:false },
+        velocity: 0,
+        steer: 0,
+        targetYaw: 0,
+        pointer: { x:0, y:0 },
+        cameraLook: new THREE.Vector3(),
+        lastTime: performance.now(),
+        reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+        nearKey: null,
+        nearDistance: Infinity,
+        activeModal: null
+      };
+
+      function resize() {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        renderer.setSize(w,h,false);
+        camera.aspect = w / h;
+        camera.fov = w < 700 ? 56 : 48;
+        camera.updateProjectionMatrix();
+      }
+      window.addEventListener('resize', resize, { passive:true });
+      resize();
+
+      function openPanel(key) {
+        const html = PANELS[key];
+        if (!html) return;
+        document.getElementById('panelContent').innerHTML = html;
+        const modal = document.getElementById('modal');
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden','false');
+        state.activeModal = key;
+        // Stop the car while content is open.
+        state.velocity = 0;
+      }
+
+      function closePanel() {
+        const modal = document.getElementById('modal');
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden','true');
+        state.activeModal = null;
+      }
+
+      document.querySelectorAll('[data-open]').forEach(btn => btn.addEventListener('click', () => openPanel(btn.dataset.open)));
+      document.getElementById('closeModal').addEventListener('click', closePanel);
+      document.getElementById('modal').addEventListener('click', e => { if (e.target.id === 'modal') closePanel(); });
+      document.getElementById('homeButton').addEventListener('click', e => { e.preventDefault(); closePanel(); car.position.set(0,0,14); car.rotation.y = 0; state.velocity = 0; });
+
+      document.addEventListener('keydown', e => {
+        const key = e.key.toLowerCase();
+        if (['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright','e','escape'].includes(key)) e.preventDefault();
+        if (key === 'escape') { closePanel(); return; }
+        if (key === 'e' && !state.activeModal && state.nearKey) openPanel(state.nearKey);
+        state.keys[key] = true;
+      });
+
+      document.addEventListener('keyup', e => { state.keys[e.key.toLowerCase()] = false; });
+
+      document.querySelectorAll('[data-drive]').forEach(btn => {
+        const name = btn.dataset.drive;
+        const set = (value) => { state.drive[name] = value; };
+        btn.addEventListener('touchstart', e => { e.preventDefault(); set(true); }, { passive:false });
+        btn.addEventListener('touchend', e => { e.preventDefault(); set(false); }, { passive:false });
+        btn.addEventListener('touchcancel', () => set(false), { passive:true });
+      });
+
+      const worldPrompt = document.getElementById('worldPrompt');
+      const toast = document.getElementById('toast');
+      let toastTimer;
+      function showToast(text) {
+        toast.textContent = text;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+      }
+
+      // World raycasting: click a sign to open it.
+      const raycaster = new THREE.Raycaster();
+      const pointer = new THREE.Vector2();
+      canvas.addEventListener('pointermove', e => {
+        const rect = canvas.getBoundingClientRect();
+        pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+        state.pointer.x = e.clientX;
+        state.pointer.y = e.clientY;
+      }, { passive:true });
+
+      canvas.addEventListener('pointerdown', e => {
+        const rect = canvas.getBoundingClientRect();
+        pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+        raycaster.setFromCamera(pointer, camera);
+        const hit = raycaster.intersectObjects(hotspots, true)[0];
+        if (hit) {
+          let obj = hit.object;
+          while (obj && !obj.userData.key) obj = obj.parent;
+          if (obj && obj.userData.key) openPanel(obj.userData.key);
+        }
+      });
+
+      const cursor = document.getElementById('cursor');
+      let pointerX = 0, pointerY = 0, cursorX = 0, cursorY = 0;
+      window.addEventListener('pointermove', e => {
+        pointerX = e.clientX; pointerY = e.clientY;
+        cursor.style.opacity = '1';
+      }, { passive:true });
+      document.querySelectorAll('button,a').forEach(el => {
+        el.addEventListener('pointerenter', () => cursor.classList.add('big'));
+        el.addEventListener('pointerleave', () => cursor.classList.remove('big'));
+      });
+
+      function controlValue(name) {
+        if (state.drive[name]) return true;
+        if (name === 'forward') return !!(state.keys.w || state.keys.arrowup);
+        if (name === 'back') return !!(state.keys.s || state.keys.arrowdown);
+        if (name === 'left') return !!(state.keys.a || state.keys.arrowleft);
+        if (name === 'right') return !!(state.keys.d || state.keys.arrowright);
+        return false;
+      }
+
+      function updateCar(dt) {
+        if (state.activeModal) return;
+        const forward = controlValue('forward');
+        const back = controlValue('back');
+        const left = controlValue('left');
+        const right = controlValue('right');
+
+        const throttle = forward ? .95 : back ? -.68 : 0;
+        state.velocity += throttle * dt * 15;
+        state.velocity *= Math.pow(.055, dt);
+        state.velocity = THREE.MathUtils.clamp(state.velocity, -5.8, 10.2);
+
+        const steerTarget = (left ? 1 : 0) + (right ? -1 : 0);
+        state.steer = THREE.MathUtils.damp(state.steer, steerTarget, 7, dt);
+        const steerAmount = (Math.abs(state.velocity) * .075 + .02) * state.steer;
+        car.rotation.y += steerAmount;
+        car.rotation.x = THREE.MathUtils.damp(car.rotation.x, -state.velocity * .008, 8, dt);
+
+        const direction = new THREE.Vector3(Math.sin(car.rotation.y), 0, Math.cos(car.rotation.y));
+        car.position.x += direction.x * state.velocity * dt;
+        car.position.z += direction.z * state.velocity * dt;
+
+        car.position.x = THREE.MathUtils.clamp(car.position.x, -100, 100);
+        car.position.z = THREE.MathUtils.clamp(car.position.z, -100, 100);
+        car.position.y = Math.sin(performance.now() * .007) * Math.min(Math.abs(state.velocity) * .006, .03);
+
+        arrow.visible = Math.abs(state.velocity) > 2;
+        arrow.rotation.z += dt * 2.4;
+      }
+
+      function updateHotspots(time) {
+        let nearest = null;
+        let nearestDist = Infinity;
+        hotspots.forEach((hotspot, idx) => {
+          const dist = car.position.distanceTo(new THREE.Vector3(hotspot.position.x, 0, hotspot.position.z));
+          const near = dist < 7.5;
+          const targetScale = near ? 1.08 + Math.sin(time * 0.006 + idx) * .03 : 1;
+          hotspot.scale.x = THREE.MathUtils.damp(hotspot.scale.x, targetScale, 8, .016);
+          hotspot.scale.y = hotspot.scale.x;
+          hotspot.scale.z = hotspot.scale.x;
+          hotspot.children[1].rotation.z = Math.sin(time * .002 + idx) * .04;
+          if (dist < nearestDist) { nearest = hotspot; nearestDist = dist; }
+        });
+        state.nearKey = nearest && nearestDist < 7.5 ? nearest.userData.key : null;
+        state.nearDistance = nearestDist;
+        if (state.nearKey) {
+          const name = state.nearKey.toUpperCase();
+          worldPrompt.textContent = `Press E · Open ${name}`;
+          worldPrompt.classList.add('is-visible');
+        } else {
+          worldPrompt.classList.remove('is-visible');
+        }
+      }
+
+      const desiredCam = new THREE.Vector3();
+      const target = new THREE.Vector3();
+      function updateCamera(dt) {
+        const followDistance = 13;
+        const height = 8.5;
+        const behind = new THREE.Vector3(Math.sin(car.rotation.y), 0, Math.cos(car.rotation.y)).multiplyScalar(-followDistance);
+        desiredCam.copy(car.position).add(behind);
+        desiredCam.y += height;
+        camera.position.lerp(desiredCam, 1 - Math.pow(.0001, dt));
+        target.copy(car.position);
+        target.y += 1.2;
+        camera.lookAt(target);
+        // Small mouse parallax, kept subtle.
+        const px = (pointerX / Math.max(window.innerWidth,1) - .5) * 1.2;
+        const py = (pointerY / Math.max(window.innerHeight,1) - .5) * .45;
+        camera.rotation.y += px * .02;
+        camera.rotation.x += py * .01;
+      }
+
+      // Gentle animated ambient motion makes the scene feel alive without overwhelming the content.
+      const clouds = [];
+      for (let i = 0; i < 12; i++) {
+        const c = new THREE.Mesh(new THREE.SphereGeometry(1.8 + Math.random() * 1.5, 10, 8), new THREE.MeshBasicMaterial({ color: COLORS.paper, transparent:true, opacity:.13 }));
+        c.position.set((Math.random()-.5)*150, 28 + Math.random()*13, (Math.random()-.5)*160);
+        c.scale.y = .5;
+        world.add(c);
+        clouds.push({mesh:c, speed:.002 + Math.random()*.003});
+      }
+
+      function animate(now) {
+        const dt = Math.min((now - state.lastTime) / 1000, .04);
+        state.lastTime = now;
+        updateCar(dt);
+        updateHotspots(now);
+        updateCamera(dt);
+        clouds.forEach(c => { c.mesh.position.x += c.speed; if (c.mesh.position.x > 90) c.mesh.position.x = -90; });
+
+        cursorX += (pointerX - cursorX) * .16;
+        cursorY += (pointerY - cursorY) * .16;
+        cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
+
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+      }
+
+      showToast('Drive around the world to explore.');
+      requestAnimationFrame(animate);
+    })();
+  </script>
+</body>
+</html>
